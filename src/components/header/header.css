@@ -1,0 +1,19 @@
+.header {
+    width: 100%;
+    height: 80px;
+    background-color: #cececeaf;
+}
+
+.header-container {
+    width: 40%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-link {
+    margin-top: 20px;
+    font-size: 30px;
+    color: #000000;
+    cursor: pointer;
+}
