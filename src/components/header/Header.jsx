@@ -17,7 +17,7 @@ function Header() {
     <header className="header">
       <nav className="header-container">
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <p className="header-link">Home</p>
+          <p className="header-link">Calendar</p>
         </Link>
         <Link to="login" style={{ textDecoration: 'none' }}>
           <p className="header-link">Login</p>

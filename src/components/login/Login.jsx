@@ -26,7 +26,7 @@ function Login() {
     if (userName === defaultUserName && password === defaultPassword) {
       localStorage.setItem('isLogin', 'true');
       localStorage.setItem('userName', JSON.stringify(userNameValue));
-      navigate('/');
+      navigate('/profile');
     } else {
       setUncorrectValues('Имя пользователя или пароль введены неверно');
     }
@@ -56,7 +56,9 @@ function Login() {
           Login
         </button>
       </form>
-      <p className={uncorrectValues === '' ? 'unactive' : 'uncorrect-values'}>{uncorrectValues}</p>
+      <p className={uncorrectValues === '' ? 'unactive-text' : 'uncorrect-values'}>
+        {uncorrectValues}
+      </p>
     </>
   );
 }

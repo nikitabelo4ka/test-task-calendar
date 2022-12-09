@@ -40,7 +40,7 @@
 }
 
 .main-header-search-wrapper {
-    margin: 50px 0 0 1245px;
+    margin: 50px 0 0 1530px;
 }
 
 .calendar-prev-icon, .calendar-next-icon {
@@ -61,7 +61,7 @@
 
 .month {
     display: flex;
-    margin: 20px 0 0 50px;
+    margin: 20px 0 0 25px;
 }
 
 .month-name, .year-name {
@@ -69,7 +69,7 @@
 }
 
 .month-name {
-    margin-left: 5px;
+    margin: 0 5px 0 0;
 }
 
 .weekdays {
@@ -94,11 +94,46 @@
     border: 1px solid #000000;
     font-size: 20px;
     font-weight: 500;
-    padding: 10px 0 0 10px;
+    padding: 10px 0 0 9px;
     margin-right: 2px;
     margin-top: 2px;
 }
 
 .unactive {
     background-color: #efeded;
+    padding-top: 34px;
+}
+
+.unactive > .day-textarea {
+    display: none;
+}
+
+.unactive > .day-header {
+    display: none;
+}
+
+.day-textarea {
+    width: 240px;
+    height: 195px;
+    font-size: 20px;
+    margin-top: 10px;
+    resize: none;
+    padding-left: 5px;
+}
+
+.day-textarea:focus {
+    outline: none;
+}
+
+.day-header {
+    display: flex;
+}
+
+.day-remove-icon {
+    margin: 9px 0 0 210px;
+    cursor: pointer;
+}
+
+.unactive-icon {
+    display: none;
 }

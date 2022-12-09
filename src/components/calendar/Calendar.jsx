@@ -66,10 +66,6 @@ function Calendar() {
   return (
     <div className="main">
       <div className="main-header">
-        <div className="main-header-buttons-wrapper">
-          <button className="main-header-button-add">Добавить</button>
-          <button className="main-header-button-update">Обновить</button>
-        </div>
         <div className="main-header-search-wrapper">
           <svg
             className="main-header-search-icon"
@@ -115,9 +111,19 @@ function Calendar() {
           <p>Воскресенье</p>
         </div>
         <div className="days">
-          {monthDays.map((day, index) => (
-            <Day key={index} day={day} />
-          ))}
+          {monthDays.map((day, index) => {
+            const id = `${index}${nowMonth}${nowYear}`;
+            return (
+              <Day
+                key={id}
+                dayNumber={day}
+                nowYear={nowYear}
+                nowMonth={nowMonth}
+                id={id}
+                monthName={arrMonthName[nowMonth]}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
