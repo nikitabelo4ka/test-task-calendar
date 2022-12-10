@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { arrMonthName } from '../../constants/months.js';
 import Day from './Day.jsx';
@@ -7,6 +8,7 @@ import './calendar.css';
 
 function Calendar() {
   const isLogin = localStorage.getItem('isLogin');
+  const actionsList = useSelector((state) => state.calendar.actions);
 
   const navigate = useNavigate();
 
@@ -19,8 +21,10 @@ function Calendar() {
   const nowDate = new Date();
 
   const [nowMonth, setNowMonth] = useState(1);
+  const [requiredDay, setRequiredDay] = useState('');
   const [nowYear, setNowYear] = useState(2022);
   const [monthDays, setMonthDays] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     setNowMonth(nowDate.getMonth());
@@ -63,6 +67,29 @@ function Calendar() {
     setCalendar(nowYear, nowMonth);
   }
 
+  function searchData(event) {
+    event.preventDefault();
+    let searchByAction = false;
+    if(event.keyCode === 13) {
+      actionsList.forEach(action => {
+        if(action.action.includes(searchValue)) {
+          setNowYear(action.nowYear);
+          setNowMonth(arrMonthName.indexOf(action.monthName));
+          searchByAction = true;
+        }
+      });
+
+      if(!searchByAction) {
+        const searchValueArr = searchValue.split(' ');
+        const month = searchValueArr[1].slice(0,1).toLocaleUpperCase() + searchValueArr[1].slice(1).toLocaleLowerCase();
+        const monthIndex = arrMonthName.indexOf(month);
+        setNowMonth(monthIndex);
+        setNowYear(searchValueArr[2]);
+        setRequiredDay(searchValueArr[0]);
+      }
+    }
+  }
+
   return (
     <div className="main">
       <div className="main-header">
@@ -81,6 +108,9 @@ function Calendar() {
             className="main-header-search-input"
             type="text"
             placeholder="Событие, дата или участник"
+            value={searchValue}
+            onChange={(event) => setSearchValue(event.target.value)}
+            onKeyUp={(event) => searchData(event)}
           />
         </div>
       </div>
@@ -121,6 +151,7 @@ function Calendar() {
                 nowMonth={nowMonth}
                 id={id}
                 monthName={arrMonthName[nowMonth]}
+                requiredDay={requiredDay}
               />
             );
           })}

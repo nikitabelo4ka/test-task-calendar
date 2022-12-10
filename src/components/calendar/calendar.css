@@ -137,3 +137,7 @@
 .unactive-icon {
     display: none;
 }
+
+.required {
+    background-color: #b7ffff;
+}
