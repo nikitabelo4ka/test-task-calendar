@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { arrMonthName } from '../../constants/months.js';
 import Day from './Day.jsx';
 import svgIcon from '../../assets/images/arrow.svg';
 import './calendar.css';
 
 function Calendar() {
+  
+  const setIsHeaderButtonActive = useOutletContext();
   const isLogin = localStorage.getItem('isLogin');
   const actionsList = useSelector((state) => state.calendar.actions);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsHeaderButtonActive('true');
+  }, []);
 
   useEffect(() => {
     if (!isLogin || isLogin === 'false') {
       navigate('/login');
+      setIsHeaderButtonActive('false');
     }
   }, [isLogin]);
 
@@ -57,37 +63,43 @@ function Calendar() {
   function handleMonthChange(operator) {
     let curDate = new Date(nowYear, nowMonth);
 
-    operator === '+'
-      ? curDate.setMonth(curDate.getMonth() + 1)
-      : curDate.setMonth(curDate.getMonth() - 1);
+    operator === '+' ? curDate.setMonth(curDate.getMonth() + 1) : curDate.setMonth(curDate.getMonth() - 1);
 
     setNowMonth(curDate.getMonth());
     setNowYear(curDate.getFullYear());
-
     setCalendar(nowYear, nowMonth);
+    setRequiredDay('');
   }
 
   function searchData(event) {
     event.preventDefault();
     let searchByAction = false;
-    if(event.keyCode === 13) {
-      actionsList.forEach(action => {
-        if(action.action.includes(searchValue)) {
+    if (event.keyCode === 13) {
+      actionsList.forEach((action) => {
+        if (action.action.includes(searchValue)) {
           setNowYear(action.nowYear);
           setNowMonth(arrMonthName.indexOf(action.monthName));
+          setRequiredDay(action.dayNumber);
           searchByAction = true;
         }
       });
 
-      if(!searchByAction) {
+      if (!searchByAction) {
         const searchValueArr = searchValue.split(' ');
-        const month = searchValueArr[1].slice(0,1).toLocaleUpperCase() + searchValueArr[1].slice(1).toLocaleLowerCase();
+        const month = searchValueArr[1].slice(0, 1).toLocaleUpperCase() + searchValueArr[1].slice(1).toLocaleLowerCase();
         const monthIndex = arrMonthName.indexOf(month);
         setNowMonth(monthIndex);
         setNowYear(searchValueArr[2]);
         setRequiredDay(searchValueArr[0]);
       }
     }
+  }
+
+  function setNowDay() {
+    setNowYear(nowDate.getFullYear());
+    setNowMonth(nowDate.getMonth());
+    setRequiredDay(nowDate.getDate());
+    console.log(nowDate.getDate());
   }
 
   return (
@@ -130,6 +142,7 @@ function Calendar() {
             alt="next"
             onClick={() => handleMonthChange('+')}
           />
+          <button className='button-now' onClick={() => setNowDay()}>Сегодня</button>
         </div>
         <div className="weekdays">
           <p>Понедельник</p>

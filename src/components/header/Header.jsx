@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './header.css';
 
-function Header() {
-  const isLogin = localStorage.getItem('isLogin');
+function Header({ isHeaderButtonActive }) {
+  
   const userName = localStorage.getItem('userName');
 
   function signOut(event) {
@@ -31,8 +31,8 @@ function Header() {
       </nav>
       <p className="user-name">{userName === '' ? '' : `${userName}`}</p>
       <button
-        className={isLogin === 'true' ? 'sign-out-button' : 'sign-out-button-unactive'}
-        disabled={isLogin === 'true' ? '' : 'disabled'}
+        className={isHeaderButtonActive === 'true' ? 'sign-out-button' : 'sign-out-button-unactive'}
+        disabled={isHeaderButtonActive === 'true' ? '' : 'disabled'}
         onClick={(event) => {
           signOut(event);
         }}

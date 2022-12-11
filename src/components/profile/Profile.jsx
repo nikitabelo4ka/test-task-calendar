@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate, useOutletContext } from 'react-router';
 import './profile.css';
 
 function Profile() {
+
   const isLogin = localStorage.getItem('isLogin');
-
   const userName = localStorage.getItem('userName');
-
   const actionsList = useSelector((state) => state.calendar.actions);
-
+  const setIsHeaderButtonActive = useOutletContext();
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsHeaderButtonActive('true');
+  }, []);
+
+  useEffect(() => {
     if (!isLogin || isLogin === 'false') {
+      setIsHeaderButtonActive('false');
       navigate('/login');
     }
   }, [isLogin]);

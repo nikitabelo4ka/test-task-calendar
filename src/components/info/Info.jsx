@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useOutletContext } from 'react-router';
 import './info.css';
 
 function Info() {
+  
+  const setIsHeaderButtonActive = useOutletContext();
+  const isLogin = localStorage.getItem('isLogin');
+
+  useEffect(() => {
+    if (!isLogin || isLogin === 'false') {
+      setIsHeaderButtonActive('false');
+    }
+  }, [isLogin]);
+
   return (
     <div className="info">
       <p>

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import './login.css';
 
 function Login() {
+
   const [userNameValue, setUserNameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [uncorrectValues, setUncorrectValues] = useState('');
 
+  const setIsHeaderButtonActive = useOutletContext();
   const isLogin = localStorage.getItem('isLogin');
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsHeaderButtonActive('false');
+  }, []);
 
   useEffect(() => {
     if (isLogin === 'true') {

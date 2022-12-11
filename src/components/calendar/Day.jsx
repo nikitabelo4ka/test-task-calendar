@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToListAction, editEventAction, removeFromListAction } from '../../store/calendarReducer.js';
+import { addToListAction, editEventAction, removeFromListAction, } from '../../store/calendarReducer.js';
 
 function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
+  
   const dispatch = useDispatch();
-
   const [actionValue, setActionValue] = useState('');
-
   const actionsList = useSelector((state) => state.calendar.actions);
-
   const storedAction = actionsList.find((action) => action.id === id);
 
   function addToList() {
@@ -33,7 +31,15 @@ function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
   }, []);
 
   return (
-    <div className={dayNumber === ' ' ? 'day unactive' : (dayNumber === Number(requiredDay) ? 'day required' : 'day')}>
+    <div
+      className={
+        dayNumber === ' '
+          ? 'day unactive'
+          : dayNumber === Number(requiredDay)
+          ? 'day required'
+          : 'day'
+      }
+    >
       <div className="day-header">
         <p className="day-number">{dayNumber}</p>
         <svg

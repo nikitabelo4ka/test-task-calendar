@@ -1,5 +1,4 @@
 import React from "react";
-window.React = React;
 import ReactDom from "react-dom/client";
 import App from "./components/App";
 import { Provider } from "react-redux";
