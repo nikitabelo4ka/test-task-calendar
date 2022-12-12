@@ -1,45 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import { DEFAULT_USERNAME, DEFAULT_PASSWORD } from 'Constants/loginData.js';
 import './login.css';
 
 function Login() {
-
   const [userNameValue, setUserNameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const [uncorrectValues, setUncorrectValues] = useState('');
+  const [isValuesUncorrect, setIsValuesUncorrect] = useState(false);
 
-  const setIsHeaderButtonActive = useOutletContext();
-  const isLogin = localStorage.getItem('isLogin');
+  const [isHeaderButtonActive, setIsHeaderButtonActive] = useOutletContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsHeaderButtonActive('false');
-  }, []);
-
-  useEffect(() => {
-    if (isLogin === 'true') {
+    if (isHeaderButtonActive) {
       navigate('/');
     }
-  }, [isLogin]);
+  }, []);
 
-  function checkData(event, userName, password) {
+  function checkData(event) {
     event.preventDefault();
 
-    const defaultUserName = 'Admin';
-    const defaultPassword = '12345678';
-
-    if (userName === defaultUserName && password === defaultPassword) {
+    if (userNameValue === DEFAULT_USERNAME && passwordValue === DEFAULT_PASSWORD) {
       localStorage.setItem('isLogin', 'true');
       localStorage.setItem('userName', JSON.stringify(userNameValue));
+      setIsHeaderButtonActive(true);
       navigate('/profile');
     } else {
-      setUncorrectValues('Имя пользователя или пароль введены неверно');
+      setIsValuesUncorrect(true);
     }
   }
 
   return (
-    <>
-      <form className="login" onSubmit={(event) => checkData(event, userNameValue, passwordValue)}>
+    <div className="container">
+      <form className="login" onSubmit={(event) => checkData(event)}>
         <input
           value={userNameValue}
           onChange={(event) => setUserNameValue(event.target.value)}
@@ -61,10 +54,10 @@ function Login() {
           Login
         </button>
       </form>
-      <p className={uncorrectValues === '' ? 'unactive-text' : 'uncorrect-values'}>
-        {uncorrectValues}
+      <p className={isValuesUncorrect ? 'uncorrect-values' : 'unactive-text'}>
+        Имя пользователя или пароль введены неверно
       </p>
-    </>
+    </div>
   );
 }
 

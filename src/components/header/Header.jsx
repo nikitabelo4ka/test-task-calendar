@@ -1,44 +1,47 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import './header.css';
 
-function Header({ isHeaderButtonActive }) {
-  
+function Header({ isHeaderButtonActive, onSignOut }) {
+  const navigate = useNavigate();
+
   const userName = localStorage.getItem('userName');
 
-  function signOut(event) {
-    event.stopPropagation();
+  function signOut() {
     localStorage.setItem('isLogin', 'false');
     localStorage.setItem('userName', '');
-    window.location.reload();
+    onSignOut(false);
+    navigate('/login');
   }
 
   return (
     <header className="header">
-      <nav className="header-container">
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <p className="header-link">Calendar</p>
-        </Link>
-        <Link to="login" style={{ textDecoration: 'none' }}>
-          <p className="header-link">Login</p>
-        </Link>
-        <Link to="profile" style={{ textDecoration: 'none' }}>
-          <p className="header-link">Profile</p>
-        </Link>
-        <Link to="info" style={{ textDecoration: 'none' }}>
-          <p className="header-link">Info</p>
-        </Link>
-      </nav>
-      <p className="user-name">{userName === '' ? '' : `${userName}`}</p>
-      <button
-        className={isHeaderButtonActive === 'true' ? 'sign-out-button' : 'sign-out-button-unactive'}
-        disabled={isHeaderButtonActive === 'true' ? '' : 'disabled'}
-        onClick={(event) => {
-          signOut(event);
-        }}
-      >
-        Sign Out
-      </button>
+      <div className="container">
+        <div className="header-wrap">
+          <nav className="header-container">
+            <NavLink to="/" style={{ textDecoration: 'none' }} end>
+              <p className="header-link">Calendar</p>
+            </NavLink>
+            <NavLink to="/login" style={{ textDecoration: 'none' }}>
+              <p className="header-link">Login</p>
+            </NavLink>
+            <NavLink to="/profile" style={{ textDecoration: 'none' }}>
+              <p className="header-link">Profile</p>
+            </NavLink>
+            <NavLink to="/info" style={{ textDecoration: 'none' }}>
+              <p className="header-link">Info</p>
+            </NavLink>
+          </nav>
+          <p className="user-name">{userName}</p>
+          <button
+            className={isHeaderButtonActive ? 'sign-out-button' : 'sign-out-button-unactive'}
+            disabled={isHeaderButtonActive ? '' : 'disabled'}
+            onClick={signOut}
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
     </header>
   );
 }

@@ -1,22 +1,22 @@
 .profile {
-    width: 700px;
-    margin: 150px 0 0 560px;
+  width: 700px;
+  margin: 150px 0 0 560px;
 }
 
 .profile-elem {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 25px;
 }
 
 .profile-no-actions {
-    font-size: 24px;
-    font-weight: 700;
-    width: 370px;
-    margin: 150px auto 0;
+  font-size: 24px;
+  font-weight: 700;
+  width: 370px;
+  margin: 150px auto 0;
 }
 
 .profile-user {
-    margin-bottom: 40px;
-    font-size: 24px;
+  margin-bottom: 40px;
+  font-size: 24px;
 }

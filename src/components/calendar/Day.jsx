@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToListAction, editEventAction, removeFromListAction, } from '../../store/calendarReducer.js';
+import { addToListAction, editEventAction, removeFromListAction } from 'Store/calendarReducer.js';
 
 function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
-  
   const dispatch = useDispatch();
   const [actionValue, setActionValue] = useState('');
   const actionsList = useSelector((state) => state.calendar.actions);
   const storedAction = actionsList.find((action) => action.id === id);
+
+  useEffect(() => {
+    if (storedAction !== undefined) {
+      setActionValue(storedAction.action);
+    }
+  }, []);
 
   function addToList() {
     if (actionValue.length !== 0) {
@@ -16,6 +21,8 @@ function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
         return;
       }
       dispatch(addToListAction({ id, dayNumber, monthName, nowYear, action: actionValue }));
+    } else if (storedAction !== undefined) {
+      dispatch(removeFromListAction(storedAction));
     }
   }
 
@@ -24,12 +31,6 @@ function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
     setActionValue('');
   }
 
-  useEffect(() => {
-    if (storedAction !== undefined) {
-      setActionValue(storedAction.action);
-    }
-  }, []);
-
   return (
     <div
       className={
@@ -37,13 +38,13 @@ function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
           ? 'day unactive'
           : dayNumber === Number(requiredDay)
           ? 'day required'
-          : 'day'
+          : `day ${storedAction !== undefined ? 'day-action' : ''}`
       }
     >
       <div className="day-header">
         <p className="day-number">{dayNumber}</p>
         <svg
-          className={storedAction !== undefined && ' ' ? 'day-remove-icon' : 'unactive-icon'}
+          className={storedAction !== undefined ? 'day-remove-icon' : 'unactive-icon'}
           onClick={removeFromList}
           width="10"
           height="10"
@@ -57,7 +58,7 @@ function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
       <textarea
         value={actionValue}
         onChange={(event) => setActionValue(event.target.value)}
-        className={dayNumber === Number(requiredDay) ? 'day-textarea required' : 'day-textarea'}
+        className={'day-textarea'}
         cols="30"
         rows="10"
         onBlur={addToList}

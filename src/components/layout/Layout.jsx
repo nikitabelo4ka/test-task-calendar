@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../header/Header.jsx';
+import Header from 'Components/header/Header.jsx';
 
 function Layout() {
-  
-  const [isHeaderButtonActive, setIsHeaderButtonActive] = useState('true');
+  const isLogin = localStorage.getItem('isLogin');
+  const isLoginBoolean = isLogin === 'true' ? true : false;
+  const [isHeaderButtonActive, setIsHeaderButtonActive] = useState(isLoginBoolean);
 
   return (
     <div className="layout">
-      <Header isHeaderButtonActive={isHeaderButtonActive} />
-      <Outlet context={(value) => setIsHeaderButtonActive(value)} />
+      <Header
+        isHeaderButtonActive={isHeaderButtonActive}
+        onSignOut={(value) => setIsHeaderButtonActive(value)}
+      />
+      <Outlet context={[isHeaderButtonActive, setIsHeaderButtonActive]} />
     </div>
   );
 }

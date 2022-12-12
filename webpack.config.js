@@ -10,7 +10,13 @@ module.exports = {
         publicPath: "/"
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        alias: {
+            Assets: path.resolve(__dirname, 'src/assets/'),
+            Components: path.resolve(__dirname, 'src/components/'),
+            Constants: path.resolve(__dirname, 'src/constants/'),
+            Store: path.resolve(__dirname, 'src/store/'),
+        },
     },
     devServer: {
         historyApiFallback: true,

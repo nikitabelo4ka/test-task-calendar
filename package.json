@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open --hot --mode development",
     "build": "webpack --mode production",
-    "prettier": "prettier --write src/**/*.jsx"
+    "prettier": "prettier --write src/"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,6 @@
     "react-router-dom": "^6.4.5",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.2",
     "style-loader": "^3.3.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.75.0",
