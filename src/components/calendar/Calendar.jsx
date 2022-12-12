@@ -87,7 +87,7 @@ function Calendar() {
         setNowMonth(monthIndex);
         setNowYear(searchValueArr[2]);
         setRequiredDay(searchValueArr[0]);
-      } else {
+      } else if (!searchByAction && !searchValue.match(/[0-9]{1,2} [А-Яа-я]+ [0-9]{4}/)) {
         alert('Некорректный поисковой запрос !');
       }
     }
