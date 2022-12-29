@@ -1,0 +1,25 @@
+.main-label {
+  font-size: 50px;
+  width: 25%;
+  margin: 150px auto 0;
+}
+
+.main-text {
+  font-size: 30px;
+  width: 34%;
+  margin: 50px auto 0;
+}
+
+.main-link {
+  border: 1px solid #000000;
+  padding: 10px 10px;
+  margin: 40px auto 0;
+  width: 220px;
+  background-color: #cecece;
+}
+
+.main-link-text {
+  text-decoration: none;
+  color: #000000;
+  font-size: 30px;
+}

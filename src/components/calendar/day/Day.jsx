@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToListAction, editEventAction, removeFromListAction } from 'Store/calendarReducer.js';
+import { addToList, removeFromList } from 'Helpers/helpers.js';
+import './day.css';
 
 function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
   const dispatch = useDispatch();
@@ -13,23 +14,6 @@ function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
       setActionValue(storedAction.action);
     }
   }, []);
-
-  function addToList() {
-    if (actionValue.length !== 0) {
-      if (storedAction !== undefined) {
-        dispatch(editEventAction({ id, dayNumber, monthName, nowYear, action: actionValue }));
-        return;
-      }
-      dispatch(addToListAction({ id, dayNumber, monthName, nowYear, action: actionValue }));
-    } else if (storedAction !== undefined) {
-      dispatch(removeFromListAction(storedAction));
-    }
-  }
-
-  function removeFromList() {
-    dispatch(removeFromListAction(storedAction));
-    setActionValue('');
-  }
 
   return (
     <div
@@ -45,7 +29,7 @@ function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
         <p className="day-number">{dayNumber}</p>
         <svg
           className={storedAction !== undefined ? 'day-remove-icon' : 'unactive-icon'}
-          onClick={removeFromList}
+          onClick={() => removeFromList(dispatch, storedAction, setActionValue)}
           width="10"
           height="10"
           viewBox="0 0 24 24"
@@ -61,7 +45,9 @@ function Day({ dayNumber, nowYear, id, monthName, requiredDay }) {
         className={'day-textarea'}
         cols="30"
         rows="10"
-        onBlur={addToList}
+        onBlur={() =>
+          addToList(actionValue, storedAction, dispatch, id, dayNumber, monthName, nowYear)
+        }
       ></textarea>
     </div>
   );

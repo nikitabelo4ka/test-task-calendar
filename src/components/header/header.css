@@ -1,5 +1,9 @@
 .header {
-  background-color: #cececeaf;
+  background-color: #cecece;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .header-wrap {
@@ -22,7 +26,7 @@
   cursor: pointer;
 }
 
-.active > .header-link::after {
+.header-link:has(.active)::after {
   display: block;
   content: '';
   background-color: #000000;
@@ -57,4 +61,17 @@
   height: 30px;
   margin: 25px 0 0 380px;
   width: 100px;
+}
+
+.navlink {
+  text-decoration: none;
+  color: #000000;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.unvisible {
+  display: none;
 }

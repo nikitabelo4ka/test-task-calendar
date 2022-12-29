@@ -27,7 +27,8 @@ function Profile() {
         {actionsList.map((action) => {
           return (
             <p key={action.id} className="profile-elem">
-              {action.dayNumber}.{arrMonthName.indexOf(action.monthName) + 1}.{action.nowYear}: {action.action}
+              {action.dayNumber}.{arrMonthName.indexOf(action.monthName) + 1}.{action.nowYear}:{' '}
+              {action.action}
             </p>
           );
         })}

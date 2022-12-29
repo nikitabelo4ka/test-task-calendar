@@ -15,6 +15,7 @@ module.exports = {
             Assets: path.resolve(__dirname, 'src/assets/'),
             Components: path.resolve(__dirname, 'src/components/'),
             Constants: path.resolve(__dirname, 'src/constants/'),
+            Helpers: path.resolve(__dirname, 'src/helpers/'),
             Store: path.resolve(__dirname, 'src/store/'),
         },
     },

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import { DEFAULT_USERNAME, DEFAULT_PASSWORD } from 'Constants/loginData.js';
+import { checkData } from 'Helpers/helpers';
 import './login.css';
 
 function Login() {
@@ -17,22 +17,21 @@ function Login() {
     }
   }, []);
 
-  function checkData(event) {
-    event.preventDefault();
-
-    if (userNameValue === DEFAULT_USERNAME && passwordValue === DEFAULT_PASSWORD) {
-      localStorage.setItem('isLogin', 'true');
-      localStorage.setItem('userName', JSON.stringify(userNameValue));
-      setIsHeaderButtonActive(true);
-      navigate('/profile');
-    } else {
-      setIsValuesUncorrect(true);
-    }
-  }
-
   return (
     <div className="container">
-      <form className="login" onSubmit={(event) => checkData(event)}>
+      <form
+        className="login"
+        onSubmit={(event) =>
+          checkData(
+            event,
+            userNameValue,
+            passwordValue,
+            setIsHeaderButtonActive,
+            navigate,
+            setIsValuesUncorrect,
+          )
+        }
+      >
         <input
           value={userNameValue}
           onChange={(event) => setUserNameValue(event.target.value)}

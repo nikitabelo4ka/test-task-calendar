@@ -5,6 +5,7 @@ import Calendar from 'Components/calendar/Calendar.jsx';
 import Login from 'Components/login/Login.jsx';
 import Info from 'Components/info/Info.jsx';
 import Profile from 'Components/profile/Profile.jsx';
+import Main from 'Components/main/Main.jsx';
 import './App.css';
 
 function App() {
@@ -13,10 +14,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Calendar />} />
+            <Route index element={<Main />} />
             <Route path="login" element={<Login />} />
             <Route path="info" element={<Info />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="calendar" element={<Calendar />} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

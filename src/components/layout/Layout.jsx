@@ -4,7 +4,7 @@ import Header from 'Components/header/Header.jsx';
 
 function Layout() {
   const isLogin = localStorage.getItem('isLogin');
-  const isLoginBoolean = isLogin === 'true' ? true : false;
+  const isLoginBoolean = isLogin === 'true';
   const [isHeaderButtonActive, setIsHeaderButtonActive] = useState(isLoginBoolean);
 
   return (
